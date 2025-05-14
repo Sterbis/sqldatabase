@@ -26,10 +26,10 @@
             <ul>
                     <li><a href="sqldatabase/sqlbase.html">sqlbase</a></li>
                     <li><a href="sqldatabase/sqlcolumn.html">sqlcolumn</a></li>
-                    <li><a href="sqldatabase/sqlcolumnfilter.html">sqlcolumnfilter</a></li>
                     <li><a href="sqldatabase/sqlcondition.html">sqlcondition</a></li>
                     <li><a href="sqldatabase/sqldatabase.html">sqldatabase</a></li>
                     <li><a href="sqldatabase/sqldatatype.html">sqldatatype</a></li>
+                    <li><a href="sqldatabase/sqlfilter.html">sqlfilter</a></li>
                     <li><a href="sqldatabase/sqlfunction.html">sqlfunction</a></li>
                     <li><a href="sqldatabase/sqlitedatabase.html">sqlitedatabase</a></li>
                     <li><a href="sqldatabase/sqljoin.html">sqljoin</a></li>
@@ -62,10 +62,10 @@ sqldatabase    </h1>
 
                         <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.sqlbase</span><span class="w"> </span><span class="kn">import</span> <span class="n">SQLBase</span><span class="p">,</span> <span class="n">SQLBaseEnum</span>
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.sqlcolumn</span><span class="w"> </span><span class="kn">import</span> <span class="n">SQLColumn</span><span class="p">,</span> <span class="n">SQLColumns</span><span class="p">,</span> <span class="n">SQLColumnsWithID</span>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.sqlcolumnfilter</span><span class="w"> </span><span class="kn">import</span> <span class="n">SQLColumnFilter</span><span class="p">,</span> <span class="n">SQLColumnFilters</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.sqlcondition</span><span class="w"> </span><span class="kn">import</span> <span class="n">SQLCompoundCondition</span><span class="p">,</span> <span class="n">SQLCondition</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.sqldatabase</span><span class="w"> </span><span class="kn">import</span> <span class="n">SQLDatabase</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.sqldatatype</span><span class="w"> </span><span class="kn">import</span> <span class="n">SQLDataType</span><span class="p">,</span> <span class="n">SQLDataTypes</span><span class="p">,</span> <span class="n">SQLDataTypeWithParameter</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.sqlcondition</span><span class="w"> </span><span class="kn">import</span> <span class="n">SQLCompoundCondition</span><span class="p">,</span> <span class="n">SQLCondition</span>
+</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.sqldatabase</span><span class="w"> </span><span class="kn">import</span> <span class="n">SQLDatabase</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.sqldatatype</span><span class="w"> </span><span class="kn">import</span> <span class="n">SQLDataType</span><span class="p">,</span> <span class="n">SQLDataTypes</span><span class="p">,</span> <span class="n">SQLDataTypeWithParameter</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.sqlfilter</span><span class="w"> </span><span class="kn">import</span> <span class="n">SQLFilter</span><span class="p">,</span> <span class="n">SQLFilters</span>
 </span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.sqlfunction</span><span class="w"> </span><span class="kn">import</span> <span class="n">SQLFunction</span><span class="p">,</span> <span class="n">SQLFunctions</span><span class="p">,</span> <span class="n">SQLFunctionWithMandatoryColumn</span>
 </span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.sqlitedatabase</span><span class="w"> </span><span class="kn">import</span> <span class="n">SQLiteDatabase</span><span class="p">,</span> <span class="n">SQLiteDataTypes</span>
 </span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.sqljoin</span><span class="w"> </span><span class="kn">import</span> <span class="n">ESQLJoinType</span><span class="p">,</span> <span class="n">SQLJoin</span>

@@ -8,8 +8,8 @@ from typing import TYPE_CHECKING, Any, Callable
 from shared import EnumLikeContainer
 
 from .sqlbase import SQLBase, value_to_sql
-from .sqlcolumnfilter import SQLColumnFilters
 from .sqldatatype import SQLDataType, SQLDataTypes
+from .sqlfilter import SQLFilters
 
 if TYPE_CHECKING:
     from .sqltable import SQLTable
@@ -81,7 +81,7 @@ class SQLColumn(SQLBase):
             ), "Converters cannot be specified together with values."
             self.to_database_converter = lambda value: value.value
             self.from_database_converter = self.values
-        self.filters = SQLColumnFilters(self)
+        self.filters = SQLFilters(self)
         self._foreign_keys: list[SQLColumn] = []
         if self.reference is not None:
             self.reference._foreign_keys.append(self)
@@ -106,7 +106,7 @@ class SQLColumn(SQLBase):
             if name not in ("_foreign_keys", "filters", "reference", "table"):
                 setattr(column, name, copy.deepcopy(value, memo))
 
-        column.filters = SQLColumnFilters(column)
+        column.filters = SQLFilters(column)
         column.reference = self.reference
         if column.reference is not None:
             column.reference._foreign_keys.remove(self)
@@ -140,7 +140,7 @@ class SQLColumn(SQLBase):
         Returns:
             str: The SQL representation of the column name.
         """
-        return self.name
+        return self.fully_qualified_name
 
     def default_value_to_sql(self) -> str:
         """Convert the default value of the column to its SQL representation.

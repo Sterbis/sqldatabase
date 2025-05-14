@@ -7,6 +7,7 @@ from shared import EnumLikeClassContainer
 
 from .sqlbase import SQLBase
 from .sqldatatype import SQLDataType
+from .sqlfilter import SQLFilters
 
 if TYPE_CHECKING:
     from .sqlcolumn import SQLColumn
@@ -34,6 +35,7 @@ class SQLFunction(SQLBase):
             self, "name"
         ), "Function name must be specified as class attribute."
         self.column = column
+        self.filters = SQLFilters(self)
 
     def __eq__(self, other: Any) -> bool:
         return (
@@ -89,16 +91,14 @@ class SQLFunction(SQLBase):
         return None
 
     def generate_parameter_name(self) -> str:
+        print("generate_parameter_name running")
         if self.column is None:
             return f"{self.name}_{uuid.uuid4().hex[:8]}"
         else:
             return f"{self.name}_{self.column.generate_parameter_name()}"
 
     def to_sql(self) -> str:
-        if self.column is None:
-            return f"{self.name.upper()}(*)"
-        else:
-            return f"{self.name.upper()}({self.column})"
+        return self.fully_qualified_name
 
 
 class SQLCountFunction(SQLFunction):

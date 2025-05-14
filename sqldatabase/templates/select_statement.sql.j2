@@ -2,14 +2,14 @@ SELECT
 {% if distinct %}DISTINCT{% endif %}
 {% if items %}
     {% for item in items %}
-        {{ item.fully_qualified_name }}
+        {{ item }}
         AS '{{ item.alias }}'
         {% if not loop.last %},{% endif %}
     {% endfor %}
 {% else %}
     *
 {% endif %}
-FROM {{ table.fully_qualified_name }}
+FROM {{ table }}
 {% if joins %}
     {% for join in joins %}
         {{ join }}
@@ -21,7 +21,7 @@ FROM {{ table.fully_qualified_name }}
 {% if group_by_columns %}
     GROUP BY
     {% for column in group_by_columns %}
-        {{ column.fully_qualified_name }}
+        {{ column }}
         {% if not loop.last %},{% endif %}
     {% endfor %}
 {% endif %}
@@ -31,7 +31,7 @@ FROM {{ table.fully_qualified_name }}
 {% if order_by_items %}
     ORDER BY
     {% for item, order in order_by_items %}
-        {{ item.fully_qualified_name }}
+        {{ item }}
         {% if order %}{{ order }}{% endif %}
         {% if not loop.last %},{% endif %}
     {% endfor %}

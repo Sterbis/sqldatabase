@@ -63,6 +63,9 @@ class SQLServerDatabaseTestCase(SQLDatabaseTestCase):
     def test_select_user_answers_accuracy(self) -> None:
         self._test_select_user_answers_accuracy()
 
+    def test_select_words_with_more_than_one_meaning(self) -> None:
+        self._test_select_words_with_more_than_one_meaning()
+
     def test_insert_word_entry(self) -> None:
         self._test_insert_word_entry()
 

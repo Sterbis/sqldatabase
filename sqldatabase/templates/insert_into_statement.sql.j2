@@ -1,6 +1,6 @@
-INSERT INTO {{ table.fully_qualified_name }} (
+INSERT INTO {{ table }} (
     {% for column in columns %}
-        {{ column }}{% if not loop.last %},{% endif %}
+        {{ column.name }}{% if not loop.last %},{% endif %}
     {% endfor %}
 )
 VALUES (

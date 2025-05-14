@@ -86,13 +86,42 @@
         }
     ],
     "test_select_users_ordered_by_correct_answers": [
-        {"COLUMN.test_dictionary.dbo.users.username": "alice", "FUNCTION.sum.COLUMN.test_dictionary.dbo.user_progress.correct": 5},
-        {"COLUMN.test_dictionary.dbo.users.username": "bob", "FUNCTION.sum.COLUMN.test_dictionary.dbo.user_progress.correct": 2}
+        {
+            "COLUMN.test_dictionary.dbo.users.username": "alice",
+            "FUNCTION.sum.COLUMN.test_dictionary.dbo.user_progress.correct": 5
+        },
+        {
+            "COLUMN.test_dictionary.dbo.users.username": "bob",
+            "FUNCTION.sum.COLUMN.test_dictionary.dbo.user_progress.correct": 2
+        }
     ],
     "test_select_word_meanings_count": [
-        {"COLUMN.test_dictionary.dbo.words.word": "book", "FUNCTION.count.COLUMN.test_dictionary.dbo.meanings.id": 2},
-        {"COLUMN.test_dictionary.dbo.words.word": "light", "FUNCTION.count.COLUMN.test_dictionary.dbo.meanings.id": 2},
-        {"COLUMN.test_dictionary.dbo.words.word": "run", "FUNCTION.count.COLUMN.test_dictionary.dbo.meanings.id": 2}
+        {
+            "COLUMN.test_dictionary.dbo.words.word": "book",
+            "FUNCTION.count.COLUMN.test_dictionary.dbo.meanings.id": 2
+        },
+        {
+            "COLUMN.test_dictionary.dbo.words.word": "light",
+            "FUNCTION.count.COLUMN.test_dictionary.dbo.meanings.id": 2
+        },
+        {
+            "COLUMN.test_dictionary.dbo.words.word": "run",
+            "FUNCTION.count.COLUMN.test_dictionary.dbo.meanings.id": 2
+        }
     ],
-    "test_select_user_answers_accuracy": {"alice": 83.33, "bob": 50.0}
+    "test_select_user_answers_accuracy": {
+        "alice": 83.33,
+        "bob": 50.0
+    },
+    "test_select_words_with_more_than_one_meaning": [
+        {
+            "COLUMN.test_dictionary.dbo.words.word": "run"
+        },
+        {
+            "COLUMN.test_dictionary.dbo.words.word": "book"
+        },
+        {
+            "COLUMN.test_dictionary.dbo.words.word": "light"
+        }
+    ]
 }

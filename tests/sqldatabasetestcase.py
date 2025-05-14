@@ -39,6 +39,7 @@ class SQLDatabaseTestCase(BaseTestCase):
         cls.database.create_all_tables()
         dictionary = cls.load_test_dictionary()
         cls.insert_test_dictionary(dictionary)
+        # pass
 
     @classmethod
     def load_test_dictionary(cls) -> dict:
@@ -292,6 +293,22 @@ class SQLDatabaseTestCase(BaseTestCase):
             ],
             group_by_columns=[words_table.columns.WORD],
             order_by_items=[words_table.columns.WORD],
+        )
+        self._test_records(records)
+
+    def _test_select_words_with_more_than_one_meaning(self) -> None:
+        words_table = self.database.tables.WORDS
+        meanings_table = self.database.tables.MEANIGS
+        count_meanings_function = self.database.functions.COUNT(
+            meanings_table.columns.ID
+        )
+        records = words_table.select_records(
+            words_table.columns.WORD,
+            joins=[
+                words_table.join(meanings_table, ESQLJoinType.LEFT),
+            ],
+            group_by_columns=[words_table.columns.WORD],
+            having_condition=count_meanings_function.filters.GREATER_THAN(1),
         )
         self._test_records(records)
 

@@ -144,7 +144,7 @@ class SQLTable(SQLBase, Generic[T]):
         Returns:
             str: The SQL representation of the table.
         """
-        return self.name
+        return self.fully_qualified_name
 
     def get_column(self, column_name) -> SQLColumn:
         """Get a column by name.

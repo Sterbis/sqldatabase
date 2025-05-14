@@ -86,13 +86,42 @@
         }
     ],
     "test_select_users_ordered_by_correct_answers": [
-        {"COLUMN.main.users.username": "alice", "FUNCTION.sum.COLUMN.main.user_progress.correct": 5},
-        {"COLUMN.main.users.username": "bob", "FUNCTION.sum.COLUMN.main.user_progress.correct": 2}
+        {
+            "COLUMN.main.users.username": "alice",
+            "FUNCTION.sum.COLUMN.main.user_progress.correct": 5
+        },
+        {
+            "COLUMN.main.users.username": "bob",
+            "FUNCTION.sum.COLUMN.main.user_progress.correct": 2
+        }
     ],
     "test_select_word_meanings_count": [
-        {"COLUMN.main.words.word": "book", "FUNCTION.count.COLUMN.main.meanings.id": 2},
-        {"COLUMN.main.words.word": "light", "FUNCTION.count.COLUMN.main.meanings.id": 2},
-        {"COLUMN.main.words.word": "run", "FUNCTION.count.COLUMN.main.meanings.id": 2}
+        {
+            "COLUMN.main.words.word": "book",
+            "FUNCTION.count.COLUMN.main.meanings.id": 2
+        },
+        {
+            "COLUMN.main.words.word": "light",
+            "FUNCTION.count.COLUMN.main.meanings.id": 2
+        },
+        {
+            "COLUMN.main.words.word": "run",
+            "FUNCTION.count.COLUMN.main.meanings.id": 2
+        }
     ],
-    "test_select_user_answers_accuracy": {"alice": 83.33, "bob": 50.0}
+    "test_select_user_answers_accuracy": {
+        "alice": 83.33,
+        "bob": 50.0
+    },
+    "test_select_words_with_more_than_one_meaning": [
+        {
+            "COLUMN.words.word": "book"
+        },
+        {
+            "COLUMN.words.word": "light"
+        },
+        {
+            "COLUMN.words.word": "run"
+        }
+    ]
 }

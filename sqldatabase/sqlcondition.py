@@ -3,11 +3,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any
 
 from .sqlbase import SQLBase
-from .sqlfunction import SQLFunction
 from .sqloperator import ESQLComparisonOperator, ESQLLogicalOperator
 
 if TYPE_CHECKING:
     from .sqlcolumn import SQLColumn
+    from .sqlfunction import SQLFunction
     from .sqlstatement import SQLSelectStatement
 
 
@@ -100,6 +100,7 @@ class SQLCondition(SQLBase):
 
     def _parse_values(self) -> None:
         from .sqlcolumn import SQLColumn
+        from .sqlfunction import SQLFunction
         from .sqlrecord import SQLRecord
         from .sqlstatement import SQLSelectStatement
 
@@ -123,6 +124,7 @@ class SQLCondition(SQLBase):
 
     def to_sql(self) -> str:
         from .sqlcolumn import SQLColumn
+        from .sqlfunction import SQLFunction
         from .sqlstatement import SQLSelectStatement
 
         if isinstance(self.left, SQLColumn):
