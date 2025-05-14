@@ -1,0 +1,11 @@
+UPDATE {{ table.fully_qualified_name }}
+SET
+{% for column, parameter in columns_and_parameters %}
+    {{ column }} = :{{ parameter }}
+    {% if not loop.last %},{% endif %}
+{% endfor %}
+WHERE {{ where_condition }}
+{% if 'id' in table.columns | map(attribute='name') %}
+    RETURNING id
+{% endif %}
+;

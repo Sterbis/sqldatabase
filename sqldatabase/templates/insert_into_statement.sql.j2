@@ -1,0 +1,14 @@
+INSERT INTO {{ table.fully_qualified_name }} (
+    {% for column in columns %}
+        {{ column }}{% if not loop.last %},{% endif %}
+    {% endfor %}
+)
+VALUES (
+    {% for parameter in parameters %}
+        :{{ parameter }}{% if not loop.last %},{% endif %}
+    {% endfor %}
+)
+{% if 'id' in table.columns | map(attribute='name') %}
+    RETURNING id
+{% endif %}
+;
