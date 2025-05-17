@@ -45,6 +45,12 @@ class SQLBaseEnum(Enum):
         return self.value
 
 
+class ESQLDateTimeExpression(SQLBaseEnum):
+    CURRENT_TIMESTAMP = "CURRENT_TIMESTAMP"
+    CURRENT_DATE = "CURRENT_DATE"
+    CURRENT_TIME = "CURRENT_TIME"
+
+
 def value_to_sql(value: Any) -> str:
     """
     Convert a Python value to its SQL representation.
@@ -58,6 +64,8 @@ def value_to_sql(value: Any) -> str:
     if isinstance(value, str):
         value = value.replace("'", "''")
         return f"'{value}'"
+    elif isinstance(value, ESQLDateTimeExpression):
+        return value.value
     elif value is None:
         return "NULL"
     else:

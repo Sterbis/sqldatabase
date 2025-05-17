@@ -30,7 +30,10 @@ class SQLiteDatabase(SQLDatabase[T], Generic[T]):
             autocommit (bool, optional): Whether to enable autocommit mode. Defaults to False.
         """
         self.path = Path(path)
-        connection = sqlite3.connect(self.path, autocommit=autocommit)
+        connection = sqlite3.connect(self.path, autocommit=True)
+        connection.row_factory = sqlite3.Row
+        connection.execute("PRAGMA foreign_keys = ON;")
+        connection.autocommit = autocommit
         SQLDatabase.__init__(self, "main", connection)
 
     def _parse_table_fully_qualified_name(

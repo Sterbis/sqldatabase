@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import base64
 import datetime
+import sqlite3
 from collections.abc import ItemsView, KeysView, MutableMapping, ValuesView
 from typing import TYPE_CHECKING, Any, Iterator
 
@@ -271,7 +272,7 @@ class SQLRecord(MutableMapping):
 
     @classmethod
     def from_database_row(
-        cls, aliases: list[str], row: tuple | pyodbc.Row, database: SQLDatabase
+        cls, aliases: list[str], row: sqlite3.Row | pyodbc.Row, database: SQLDatabase
     ) -> SQLRecord:
         """Create a SQLRecord instance from a database row.
 

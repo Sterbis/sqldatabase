@@ -17,6 +17,8 @@ CREATE TABLE
     {% if loop.first %},{% endif %}
     FOREIGN KEY ({{ column.name }})
     REFERENCES {{ column.reference.table }}({{ column.reference.name }})
+    {% if column.on_delete %}ON DELETE {{ column.on_delete }}{% endif %}
+    {% if column.on_update %}ON UPDATE {{ column.on_update }}{% endif %}
     {% if not loop.last %},{% endif %}
 {% endfor %}
 );

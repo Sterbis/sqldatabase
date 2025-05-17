@@ -1,5 +1,5 @@
 from .sqlbase import SQLBase, SQLBaseEnum
-from .sqlcolumn import SQLColumn, SQLColumns, SQLColumnsWithID
+from .sqlcolumn import ESQLForeignKeyAction, SQLColumn, SQLColumns, SQLColumnsWithID
 from .sqlcondition import SQLCompoundCondition, SQLCondition
 from .sqldatabase import SQLDatabase
 from .sqldatatype import SQLDataType, SQLDataTypes, SQLDataTypeWithParameter

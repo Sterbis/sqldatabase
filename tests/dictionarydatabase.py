@@ -1,6 +1,7 @@
 from enum import Enum
 
 from sqldatabase import (
+    ESQLForeignKeyAction,
     SQLColumn,
     SQLColumns,
     SQLColumnsWithID,
@@ -44,7 +45,11 @@ class WordsTable(SQLTable[WordsTableColumns]):
 
 class MeaningsTableColumns(SQLColumnsWithID):
     WORD_ID = SQLColumn(
-        "word_id", SQLDataTypes.INTEGER, not_null=True, reference=WordsTable.columns.ID
+        "word_id",
+        SQLDataTypes.INTEGER,
+        not_null=True,
+        reference=WordsTableColumns.ID,
+        on_delete=ESQLForeignKeyAction.CASCADE,
     )
     DEFINITION = SQLColumn("definition", SQLDataTypes.TEXT, not_null=True)
     PART_OF_SPEECH = SQLColumn(
@@ -62,7 +67,8 @@ class ExamplesTableColumns(SQLColumnsWithID):
         "meaning_id",
         SQLDataTypes.INTEGER,
         not_null=True,
-        reference=MeaningsTable.columns.ID,
+        reference=MeaningsTableColumns.ID,
+        on_delete=ESQLForeignKeyAction.CASCADE,
     )
     EXAMPLE = SQLColumn("example", SQLDataTypes.TEXT)
 
@@ -86,10 +92,15 @@ class MeaningTagsTableColumns(SQLColumns):
         "meaning_id",
         SQLDataTypes.INTEGER,
         not_null=True,
-        reference=MeaningsTable.columns.ID,
+        reference=MeaningsTableColumns.ID,
+        on_delete=ESQLForeignKeyAction.CASCADE,
     )
     TAG_ID = SQLColumn(
-        "tag_id", SQLDataTypes.INTEGER, not_null=True, reference=TagsTable.columns.ID
+        "tag_id",
+        SQLDataTypes.INTEGER,
+        not_null=True,
+        reference=TagsTableColumns.ID,
+        on_delete=ESQLForeignKeyAction.CASCADE,
     )
 
 
@@ -110,13 +121,18 @@ class UsersTable(SQLTable[UsersTableColumns]):
 
 class UserProgressTableColumns(SQLColumns):
     USER_ID = SQLColumn(
-        "user_id", SQLDataTypes.INTEGER, not_null=True, reference=UsersTable.columns.ID
+        "user_id",
+        SQLDataTypes.INTEGER,
+        not_null=True,
+        reference=UsersTableColumns.ID,
+        on_delete=ESQLForeignKeyAction.CASCADE,
     )
     MEANING_ID = SQLColumn(
         "meaning_id",
         SQLDataTypes.INTEGER,
         not_null=True,
-        reference=MeaningsTable.columns.ID,
+        reference=MeaningsTableColumns.ID,
+        on_delete=ESQLForeignKeyAction.CASCADE,
     )
     ATTEMPTS = SQLColumn("attempts", SQLDataTypes.INTEGER, default_value=0)
     CORRECT = SQLColumn("correct", SQLDataTypes.INTEGER, default_value=0)

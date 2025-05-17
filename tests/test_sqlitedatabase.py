@@ -69,8 +69,11 @@ class SQLiteDatabaseTestCase(SQLDatabaseTestCase):
     def test_update_correct_answers_count(self) -> None:
         self._test_update_correct_answers_count()
 
-    def test_delete_user_and_user_progress(self) -> None:
-        self._test_delete_user_and_user_progress()
+    def test_delete_word(self) -> None:
+        self._test_delete_word()
+
+    def test_delete_user(self) -> None:
+        self._test_delete_user()
 
 
 if __name__ == "__main__":

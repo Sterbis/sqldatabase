@@ -7,12 +7,22 @@ from typing import TYPE_CHECKING, Any, Callable
 
 from shared import EnumLikeContainer
 
-from .sqlbase import SQLBase, value_to_sql
+from .sqlbase import SQLBase, SQLBaseEnum, value_to_sql
 from .sqldatatype import SQLDataType, SQLDataTypes
 from .sqlfilter import SQLFilters
 
 if TYPE_CHECKING:
     from .sqltable import SQLTable
+
+
+class ESQLForeignKeyAction(SQLBaseEnum):
+    """Represents foreign key actions for SQL columns."""
+
+    CASCADE = "CASCADE"
+    NO_ACTION = "NO ACTION"
+    RESTRICT = "RESTRICT"
+    SET_DEFAULT = "SET DEFAULT"
+    SET_NULL = "SET NULL"
 
 
 class SQLColumn(SQLBase):
@@ -43,9 +53,11 @@ class SQLColumn(SQLBase):
         unique: bool = False,
         default_value: Any = None,
         reference: SQLColumn | None = None,
+        on_update: ESQLForeignKeyAction | None = None,
+        on_delete: ESQLForeignKeyAction | None = None,
+        values: type[Enum] | None = None,
         to_database_converter: Callable[[Any], Any] | None = None,
         from_database_converter: Callable[[Any], Any] | None = None,
-        values: type[Enum] | None = None,
     ):
         """
         Initialize a SQLColumn instance.
@@ -71,6 +83,8 @@ class SQLColumn(SQLBase):
         self.unique = unique
         self.default_value = default_value
         self.reference = reference
+        self.on_update = on_update
+        self.on_delete = on_delete
         self.values = values
         if self.values is None:
             self.to_database_converter = to_database_converter
@@ -82,9 +96,9 @@ class SQLColumn(SQLBase):
             self.to_database_converter = lambda value: value.value
             self.from_database_converter = self.values
         self.filters = SQLFilters(self)
-        self._foreign_keys: list[SQLColumn] = []
+        self._referencing_columns: list[SQLColumn] = []
         if self.reference is not None:
-            self.reference._foreign_keys.append(self)
+            self.reference._referencing_columns.append(self)
         self.table: SQLTable | None = None
 
     def __deepcopy__(self, memo) -> SQLColumn:
@@ -96,24 +110,21 @@ class SQLColumn(SQLBase):
         Returns:
             SQLColumn: A deep copy of the current SQLColumn instance.
         """
-        if id(self) in memo:
-            return memo[id(self)]
-
         cls = self.__class__
         column = cls.__new__(cls)
         memo[id(self)] = column
         for name, value in self.__dict__.items():
-            if name not in ("_foreign_keys", "filters", "reference", "table"):
+            if name not in ("_referencing_columns", "filters", "reference", "table"):
                 setattr(column, name, copy.deepcopy(value, memo))
 
         column.filters = SQLFilters(column)
         column.reference = self.reference
         if column.reference is not None:
-            column.reference._foreign_keys.remove(self)
-            column.reference._foreign_keys.append(column)
-        column._foreign_keys = copy.copy(self._foreign_keys)
-        for foreign_key in column._foreign_keys:
-            foreign_key.reference = column
+            column.reference._referencing_columns.remove(self)
+            column.reference._referencing_columns.append(column)
+        column._referencing_columns = copy.copy(self._referencing_columns)
+        for referencing_column in column._referencing_columns:
+            referencing_column.reference = column
         return column
 
     @property

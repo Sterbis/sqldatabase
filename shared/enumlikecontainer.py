@@ -10,8 +10,8 @@ class EnumLikeContainer(Generic[T]):
 
     def __init__(self) -> None:
         self._items: dict[str, T] = {}
-        for base in reversed(self.__class__.__mro__):
-            for name, value in base.__dict__.items():
+        for cls in reversed(self.__class__.__mro__):
+            for name, value in cls.__dict__.items():
                 if self._condition(value, self.item_type):
                     item = copy.deepcopy(value, memo={})
                     self._items[name] = item

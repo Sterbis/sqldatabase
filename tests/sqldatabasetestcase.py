@@ -1,6 +1,4 @@
 import datetime
-import sys
-from pathlib import Path
 
 from sqldatabase import (
     ESQLComparisonOperator,
@@ -107,7 +105,7 @@ class SQLDatabaseTestCase(BaseTestCase):
                         referenced_column=referenced_column.fully_qualified_name,
                     ):
                         self.assertIs(column.reference, referenced_column)
-                        self.assertIn(column, referenced_column._foreign_keys)
+                        self.assertIn(column, referenced_column._referencing_columns)
 
     def _test_column_to_table_reference(self) -> None:
         for table in self.database.tables:
@@ -428,17 +426,26 @@ class SQLDatabaseTestCase(BaseTestCase):
         )[0][user_progress_table.columns.CORRECT]
         self.assertEqual(correct_answers_count, new_correct_answers_count)
 
-    def _test_delete_user_and_user_progress(self) -> None:
+    def _test_delete_word(self) -> None:
+        word_id = 3
+        words_table = self.database.tables.WORDS
+        meanings_table = self.database.tables.MEANIGS
+        examples_table = self.database.tables.EXAMPLES
+        word_ids = words_table.delete_records(
+            words_table.columns.ID.filters.EQUAL(word_id)
+        )
+        self.assertEqual(word_ids, [word_id])
+        words_count = words_table.record_count()
+        self.assertEqual(words_count, 2)
+        meanings_count = meanings_table.record_count()
+        self.assertEqual(meanings_count, 4)
+        examples_count = examples_table.record_count()
+        self.assertEqual(examples_count, 4)
+
+    def _test_delete_user(self) -> None:
         user_id = 2
         users_table = self.database.tables.USERS
         user_progress_table = self.database.tables.USER_PROGRESS
-
-        user_progress_ids = user_progress_table.delete_records(
-            user_progress_table.columns.USER_ID.filters.EQUAL(user_id)
-        )
-        self.assertIsNone(user_progress_ids)
-        user_progresses_cout = user_progress_table.record_count()
-        self.assertEqual(user_progresses_cout, 3)
 
         user_ids = users_table.delete_records(
             users_table.columns.ID.filters.EQUAL(user_id)
@@ -446,3 +453,6 @@ class SQLDatabaseTestCase(BaseTestCase):
         self.assertEqual(user_ids, [user_id])
         users_count = users_table.record_count()
         self.assertEqual(users_count, 1)
+
+        user_progresses_cout = user_progress_table.record_count()
+        self.assertEqual(user_progresses_cout, 3)

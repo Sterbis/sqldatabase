@@ -49,6 +49,21 @@
 
             </li>
             <li>
+                    <a class="class" href="#ESQLDateTimeExpression">ESQLDateTimeExpression</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="variable" href="#ESQLDateTimeExpression.CURRENT_TIMESTAMP">CURRENT_TIMESTAMP</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ESQLDateTimeExpression.CURRENT_DATE">CURRENT_DATE</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ESQLDateTimeExpression.CURRENT_TIME">CURRENT_TIME</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
                     <a class="function" href="#value_to_sql">value_to_sql</a>
             </li>
     </ul>
@@ -119,23 +134,31 @@
 </span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
 </span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>
 </span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>
-</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a><span class="k">def</span><span class="w"> </span><span class="nf">value_to_sql</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a><span class="sd">    Convert a Python value to its SQL representation.</span>
-</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>
-</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a><span class="sd">    Args:</span>
-</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a><span class="sd">        value (Any): The value to convert.</span>
-</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>
-</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a><span class="sd">    Returns:</span>
-</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a><span class="sd">        str: The SQL representation of the value.</span>
-</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a>        <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;&#39;&quot;</span><span class="p">)</span>
-</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
-</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a>    <span class="k">elif</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a>        <span class="k">return</span> <span class="s2">&quot;NULL&quot;</span>
-</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>    <span class="k">else</span><span class="p">:</span>
-</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ESQLDateTimeExpression</span><span class="p">(</span><span class="n">SQLBaseEnum</span><span class="p">):</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>    <span class="n">CURRENT_TIMESTAMP</span> <span class="o">=</span> <span class="s2">&quot;CURRENT_TIMESTAMP&quot;</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>    <span class="n">CURRENT_DATE</span> <span class="o">=</span> <span class="s2">&quot;CURRENT_DATE&quot;</span>
+</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>    <span class="n">CURRENT_TIME</span> <span class="o">=</span> <span class="s2">&quot;CURRENT_TIME&quot;</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>
+</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>
+</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a><span class="k">def</span><span class="w"> </span><span class="nf">value_to_sql</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a><span class="sd">    Convert a Python value to its SQL representation.</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a>
+</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a><span class="sd">    Args:</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a><span class="sd">        value (Any): The value to convert.</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>
+</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a><span class="sd">    Returns:</span>
+</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a><span class="sd">        str: The SQL representation of the value.</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>        <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;&#39;&quot;</span><span class="p">)</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a>    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">ESQLDateTimeExpression</span><span class="p">):</span>
+</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a>        <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">value</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a>    <span class="k">elif</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a>        <span class="k">return</span> <span class="s2">&quot;NULL&quot;</span>
+</span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="L-72"><a href="#L-72"><span class="linenos">72</span></a>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -295,6 +318,80 @@
 
                             </div>
                 </section>
+                <section id="ESQLDateTimeExpression">
+                            <input id="ESQLDateTimeExpression-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">ESQLDateTimeExpression</span><wbr>(<span class="base"><a href="#SQLBaseEnum">SQLBaseEnum</a></span>):
+
+                <label class="view-source-button" for="ESQLDateTimeExpression-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#ESQLDateTimeExpression"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ESQLDateTimeExpression-49"><a href="#ESQLDateTimeExpression-49"><span class="linenos">49</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ESQLDateTimeExpression</span><span class="p">(</span><span class="n">SQLBaseEnum</span><span class="p">):</span>
+</span><span id="ESQLDateTimeExpression-50"><a href="#ESQLDateTimeExpression-50"><span class="linenos">50</span></a>    <span class="n">CURRENT_TIMESTAMP</span> <span class="o">=</span> <span class="s2">&quot;CURRENT_TIMESTAMP&quot;</span>
+</span><span id="ESQLDateTimeExpression-51"><a href="#ESQLDateTimeExpression-51"><span class="linenos">51</span></a>    <span class="n">CURRENT_DATE</span> <span class="o">=</span> <span class="s2">&quot;CURRENT_DATE&quot;</span>
+</span><span id="ESQLDateTimeExpression-52"><a href="#ESQLDateTimeExpression-52"><span class="linenos">52</span></a>    <span class="n">CURRENT_TIME</span> <span class="o">=</span> <span class="s2">&quot;CURRENT_TIME&quot;</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Base class for SQL-related enumerations.</p>
+
+<h6 id="methods">Methods:</h6>
+
+<blockquote>
+  <p>to_sql: Convert the enumeration value to its SQL representation.</p>
+</blockquote>
+</div>
+
+
+                            <div id="ESQLDateTimeExpression.CURRENT_TIMESTAMP" class="classattr">
+                                <div class="attr variable">
+            <span class="name">CURRENT_TIMESTAMP</span>        =
+<span class="default_value">&lt;<a href="#ESQLDateTimeExpression.CURRENT_TIMESTAMP">ESQLDateTimeExpression.CURRENT_TIMESTAMP</a>: &#39;CURRENT_TIMESTAMP&#39;&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#ESQLDateTimeExpression.CURRENT_TIMESTAMP"></a>
+    
+    
+
+                            </div>
+                            <div id="ESQLDateTimeExpression.CURRENT_DATE" class="classattr">
+                                <div class="attr variable">
+            <span class="name">CURRENT_DATE</span>        =
+<span class="default_value">&lt;<a href="#ESQLDateTimeExpression.CURRENT_DATE">ESQLDateTimeExpression.CURRENT_DATE</a>: &#39;CURRENT_DATE&#39;&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#ESQLDateTimeExpression.CURRENT_DATE"></a>
+    
+    
+
+                            </div>
+                            <div id="ESQLDateTimeExpression.CURRENT_TIME" class="classattr">
+                                <div class="attr variable">
+            <span class="name">CURRENT_TIME</span>        =
+<span class="default_value">&lt;<a href="#ESQLDateTimeExpression.CURRENT_TIME">ESQLDateTimeExpression.CURRENT_TIME</a>: &#39;CURRENT_TIME&#39;&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#ESQLDateTimeExpression.CURRENT_TIME"></a>
+    
+    
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt><a href="#SQLBaseEnum">SQLBaseEnum</a></dt>
+                                <dd id="ESQLDateTimeExpression.to_sql" class="function"><a href="#SQLBaseEnum.to_sql">to_sql</a></dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
                 <section id="value_to_sql">
                             <input id="value_to_sql-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
@@ -306,23 +403,25 @@
 
     </div>
     <a class="headerlink" href="#value_to_sql"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="value_to_sql-49"><a href="#value_to_sql-49"><span class="linenos">49</span></a><span class="k">def</span><span class="w"> </span><span class="nf">value_to_sql</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="value_to_sql-50"><a href="#value_to_sql-50"><span class="linenos">50</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="value_to_sql-51"><a href="#value_to_sql-51"><span class="linenos">51</span></a><span class="sd">    Convert a Python value to its SQL representation.</span>
-</span><span id="value_to_sql-52"><a href="#value_to_sql-52"><span class="linenos">52</span></a>
-</span><span id="value_to_sql-53"><a href="#value_to_sql-53"><span class="linenos">53</span></a><span class="sd">    Args:</span>
-</span><span id="value_to_sql-54"><a href="#value_to_sql-54"><span class="linenos">54</span></a><span class="sd">        value (Any): The value to convert.</span>
-</span><span id="value_to_sql-55"><a href="#value_to_sql-55"><span class="linenos">55</span></a>
-</span><span id="value_to_sql-56"><a href="#value_to_sql-56"><span class="linenos">56</span></a><span class="sd">    Returns:</span>
-</span><span id="value_to_sql-57"><a href="#value_to_sql-57"><span class="linenos">57</span></a><span class="sd">        str: The SQL representation of the value.</span>
-</span><span id="value_to_sql-58"><a href="#value_to_sql-58"><span class="linenos">58</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="value_to_sql-59"><a href="#value_to_sql-59"><span class="linenos">59</span></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="value_to_sql-60"><a href="#value_to_sql-60"><span class="linenos">60</span></a>        <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;&#39;&quot;</span><span class="p">)</span>
-</span><span id="value_to_sql-61"><a href="#value_to_sql-61"><span class="linenos">61</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
-</span><span id="value_to_sql-62"><a href="#value_to_sql-62"><span class="linenos">62</span></a>    <span class="k">elif</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="value_to_sql-63"><a href="#value_to_sql-63"><span class="linenos">63</span></a>        <span class="k">return</span> <span class="s2">&quot;NULL&quot;</span>
-</span><span id="value_to_sql-64"><a href="#value_to_sql-64"><span class="linenos">64</span></a>    <span class="k">else</span><span class="p">:</span>
-</span><span id="value_to_sql-65"><a href="#value_to_sql-65"><span class="linenos">65</span></a>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="value_to_sql-55"><a href="#value_to_sql-55"><span class="linenos">55</span></a><span class="k">def</span><span class="w"> </span><span class="nf">value_to_sql</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="value_to_sql-56"><a href="#value_to_sql-56"><span class="linenos">56</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="value_to_sql-57"><a href="#value_to_sql-57"><span class="linenos">57</span></a><span class="sd">    Convert a Python value to its SQL representation.</span>
+</span><span id="value_to_sql-58"><a href="#value_to_sql-58"><span class="linenos">58</span></a>
+</span><span id="value_to_sql-59"><a href="#value_to_sql-59"><span class="linenos">59</span></a><span class="sd">    Args:</span>
+</span><span id="value_to_sql-60"><a href="#value_to_sql-60"><span class="linenos">60</span></a><span class="sd">        value (Any): The value to convert.</span>
+</span><span id="value_to_sql-61"><a href="#value_to_sql-61"><span class="linenos">61</span></a>
+</span><span id="value_to_sql-62"><a href="#value_to_sql-62"><span class="linenos">62</span></a><span class="sd">    Returns:</span>
+</span><span id="value_to_sql-63"><a href="#value_to_sql-63"><span class="linenos">63</span></a><span class="sd">        str: The SQL representation of the value.</span>
+</span><span id="value_to_sql-64"><a href="#value_to_sql-64"><span class="linenos">64</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="value_to_sql-65"><a href="#value_to_sql-65"><span class="linenos">65</span></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="value_to_sql-66"><a href="#value_to_sql-66"><span class="linenos">66</span></a>        <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;&#39;&quot;</span><span class="p">)</span>
+</span><span id="value_to_sql-67"><a href="#value_to_sql-67"><span class="linenos">67</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+</span><span id="value_to_sql-68"><a href="#value_to_sql-68"><span class="linenos">68</span></a>    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">ESQLDateTimeExpression</span><span class="p">):</span>
+</span><span id="value_to_sql-69"><a href="#value_to_sql-69"><span class="linenos">69</span></a>        <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">value</span>
+</span><span id="value_to_sql-70"><a href="#value_to_sql-70"><span class="linenos">70</span></a>    <span class="k">elif</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="value_to_sql-71"><a href="#value_to_sql-71"><span class="linenos">71</span></a>        <span class="k">return</span> <span class="s2">&quot;NULL&quot;</span>
+</span><span id="value_to_sql-72"><a href="#value_to_sql-72"><span class="linenos">72</span></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="value_to_sql-73"><a href="#value_to_sql-73"><span class="linenos">73</span></a>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 </span></pre></div>
 
 

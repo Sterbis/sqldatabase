@@ -99,6 +99,16 @@ class SQLDatabase(SQLBase, Generic[T]):
         """
         return bool(self._connection.autocommit)
 
+    @autocommit.setter
+    def autocommit(self, value: bool) -> None:
+        """
+        Set the autocommit mode for the database.
+
+        Args:
+            value (bool): True to enable autocommit, False to disable it.
+        """
+        self._connection.autocommit = value
+
     @abstractmethod
     def _parse_table_fully_qualified_name(
         self,
