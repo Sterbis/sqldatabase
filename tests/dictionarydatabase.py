@@ -48,7 +48,7 @@ class MeaningsTableColumns(SQLColumnsWithID):
         "word_id",
         SQLDataTypes.INTEGER,
         not_null=True,
-        reference=WordsTableColumns.ID,
+        reference=WordsTable.columns.ID,
         on_delete=ESQLForeignKeyAction.CASCADE,
     )
     DEFINITION = SQLColumn("definition", SQLDataTypes.TEXT, not_null=True)
@@ -67,7 +67,7 @@ class ExamplesTableColumns(SQLColumnsWithID):
         "meaning_id",
         SQLDataTypes.INTEGER,
         not_null=True,
-        reference=MeaningsTableColumns.ID,
+        reference=MeaningsTable.columns.ID,
         on_delete=ESQLForeignKeyAction.CASCADE,
     )
     EXAMPLE = SQLColumn("example", SQLDataTypes.TEXT)
@@ -92,14 +92,14 @@ class MeaningTagsTableColumns(SQLColumns):
         "meaning_id",
         SQLDataTypes.INTEGER,
         not_null=True,
-        reference=MeaningsTableColumns.ID,
+        reference=MeaningsTable.columns.ID,
         on_delete=ESQLForeignKeyAction.CASCADE,
     )
     TAG_ID = SQLColumn(
         "tag_id",
         SQLDataTypes.INTEGER,
         not_null=True,
-        reference=TagsTableColumns.ID,
+        reference=TagsTable.columns.ID,
         on_delete=ESQLForeignKeyAction.CASCADE,
     )
 
@@ -124,14 +124,14 @@ class UserProgressTableColumns(SQLColumns):
         "user_id",
         SQLDataTypes.INTEGER,
         not_null=True,
-        reference=UsersTableColumns.ID,
+        reference=UsersTable.columns.ID,
         on_delete=ESQLForeignKeyAction.CASCADE,
     )
     MEANING_ID = SQLColumn(
         "meaning_id",
         SQLDataTypes.INTEGER,
         not_null=True,
-        reference=MeaningsTableColumns.ID,
+        reference=MeaningsTable.columns.ID,
         on_delete=ESQLForeignKeyAction.CASCADE,
     )
     ATTEMPTS = SQLColumn("attempts", SQLDataTypes.INTEGER, default_value=0)

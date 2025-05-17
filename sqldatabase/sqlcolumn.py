@@ -120,7 +120,8 @@ class SQLColumn(SQLBase):
         column.filters = SQLFilters(column)
         column.reference = self.reference
         if column.reference is not None:
-            column.reference._referencing_columns.remove(self)
+            if self in column.reference._referencing_columns:
+                column.reference._referencing_columns.remove(self)
             column.reference._referencing_columns.append(column)
         column._referencing_columns = copy.copy(self._referencing_columns)
         for referencing_column in column._referencing_columns:
